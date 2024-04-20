@@ -1,0 +1,786 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "CineDeepMatch API",
+    "version": "1.0",
+    "contact": {
+      "name": "Dat",
+      "url": "https://github.com/CineDeepMatch/Backend-server",
+      "email": "trongdatvuong@gmail.com"
+    },
+    "license": {
+      "name": "BSD 3-Clause License",
+      "url": "https://github.com/grpc-ecosystem/grpc-gateway/blob/main/LICENSE"
+    },
+    "x-something-something": "yadda"
+  },
+  "tags": [
+    {
+      "name": "CineDeepMatch"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/create_activity": {
+      "post": {
+        "operationId": "CineDeepMatch_CreateActivity",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbCreateActivityResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/pbCreateActivityRequest"
+            }
+          }
+        ],
+        "tags": [
+          "CineDeepMatch"
+        ]
+      }
+    },
+    "/v1/create_fav_movies": {
+      "post": {
+        "operationId": "CineDeepMatch_CreateFavMovies",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbCreateFavMoviesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/pbCreateFavMoviesRequest"
+            }
+          }
+        ],
+        "tags": [
+          "CineDeepMatch"
+        ]
+      }
+    },
+    "/v1/create_user": {
+      "post": {
+        "operationId": "CineDeepMatch_CreateUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbCreateUserResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/pbCreateUserRequest"
+            }
+          }
+        ],
+        "tags": [
+          "CineDeepMatch"
+        ]
+      }
+    },
+    "/v1/get_activities/{userId}": {
+      "get": {
+        "operationId": "CineDeepMatch_GetActivities",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbGetActivitiesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "CineDeepMatch"
+        ]
+      }
+    },
+    "/v1/get_fav_movies/{userId}": {
+      "get": {
+        "operationId": "CineDeepMatch_GetFavMovies",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbGetFavMoviesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "CineDeepMatch"
+        ]
+      }
+    },
+    "/v1/get_movie/{movieId}": {
+      "get": {
+        "operationId": "CineDeepMatch_GetMovie",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbGetMovieResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "movieId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "CineDeepMatch"
+        ]
+      }
+    },
+    "/v1/get_movies": {
+      "get": {
+        "operationId": "CineDeepMatch_GetManyMovies",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbGetManyMoviesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "CineDeepMatch"
+        ]
+      }
+    },
+    "/v1/login_user": {
+      "post": {
+        "operationId": "CineDeepMatch_LoginUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbLoginUserResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/pbLoginUserRequest"
+            }
+          }
+        ],
+        "tags": [
+          "CineDeepMatch"
+        ]
+      }
+    },
+    "/v1/renew_access_token": {
+      "post": {
+        "operationId": "CineDeepMatch_RenewAccessToken",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbRenewAccessTokenResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/pbRenewAccessTokenRequest"
+            }
+          }
+        ],
+        "tags": [
+          "CineDeepMatch"
+        ]
+      }
+    },
+    "/v1/update_fav_movies/{userId}": {
+      "put": {
+        "operationId": "CineDeepMatch_UpdateFavMovies",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbUpdateFavMoviesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CineDeepMatchUpdateFavMoviesBody"
+            }
+          }
+        ],
+        "tags": [
+          "CineDeepMatch"
+        ]
+      }
+    },
+    "/v1/update_user/{userId}": {
+      "put": {
+        "operationId": "CineDeepMatch_UpdateUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbUpdateUserResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CineDeepMatchUpdateUserBody"
+            }
+          }
+        ],
+        "tags": [
+          "CineDeepMatch"
+        ]
+      }
+    },
+    "/v1/verify_email": {
+      "get": {
+        "operationId": "CineDeepMatch_VerifyEmail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbVerifyEmailResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "emailId",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "secretCode",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "CineDeepMatch"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "CineDeepMatchUpdateFavMoviesBody": {
+      "type": "object",
+      "properties": {
+        "movieIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "Update Fav Movies"
+    },
+    "CineDeepMatchUpdateUserBody": {
+      "type": "object",
+      "properties": {
+        "fullName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "title": "Update User"
+    },
+    "pbActivity": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "viewPage": {
+          "type": "string"
+        },
+        "duration": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pageVisitedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "pbCreateActivityRequest": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "viewPage": {
+          "type": "string"
+        },
+        "duration": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pageVisitedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "title": "Create Activity"
+    },
+    "pbCreateActivityResponse": {
+      "type": "object",
+      "properties": {
+        "activity": {
+          "$ref": "#/definitions/pbActivity"
+        }
+      }
+    },
+    "pbCreateFavMoviesRequest": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "movieIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "Create Fav Movies"
+    },
+    "pbCreateFavMoviesResponse": {
+      "type": "object",
+      "properties": {
+        "favMovies": {
+          "$ref": "#/definitions/pbFavMovies"
+        }
+      }
+    },
+    "pbCreateUserRequest": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "fullName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "title": "Create User"
+    },
+    "pbCreateUserResponse": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/pbUser"
+        }
+      }
+    },
+    "pbFavMovies": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "movieIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "pbGetActivitiesResponse": {
+      "type": "object",
+      "properties": {
+        "activities": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/pbActivity"
+          }
+        }
+      }
+    },
+    "pbGetFavMoviesResponse": {
+      "type": "object",
+      "properties": {
+        "movies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/pbMovie"
+          }
+        }
+      }
+    },
+    "pbGetManyMoviesResponse": {
+      "type": "object",
+      "properties": {
+        "movies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/pbMovie"
+          }
+        }
+      }
+    },
+    "pbGetMovieResponse": {
+      "type": "object",
+      "properties": {
+        "movie": {
+          "$ref": "#/definitions/pbMovie"
+        }
+      }
+    },
+    "pbLoginUserRequest": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "title": "Login User"
+    },
+    "pbLoginUserResponse": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string"
+        },
+        "accessToken": {
+          "type": "string"
+        },
+        "accessTokenExpiresAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "refreshToken": {
+          "type": "string"
+        },
+        "refreshTokenExpiresAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "user": {
+          "$ref": "#/definitions/pbUser"
+        }
+      }
+    },
+    "pbMovie": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "characters": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "genres": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "rating": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "pbRenewAccessTokenRequest": {
+      "type": "object",
+      "properties": {
+        "refreshToken": {
+          "type": "string"
+        }
+      }
+    },
+    "pbRenewAccessTokenResponse": {
+      "type": "object",
+      "properties": {
+        "accessToken": {
+          "$ref": "#/definitions/pbToken"
+        }
+      }
+    },
+    "pbToken": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        },
+        "expiresAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "pbUpdateFavMoviesResponse": {
+      "type": "object",
+      "properties": {
+        "favMovies": {
+          "$ref": "#/definitions/pbFavMovies"
+        }
+      }
+    },
+    "pbUpdateUserResponse": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/pbUser"
+        }
+      }
+    },
+    "pbUser": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "fullName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "passwordChangedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "pbVerifyEmailResponse": {
+      "type": "object",
+      "properties": {
+        "isVerified": {
+          "type": "boolean"
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}
