@@ -311,10 +311,31 @@
     "pbCreateRecruiterRequest": {
       "type": "object",
       "properties": {
+        "id": {
+          "type": "string"
+        },
         "userId": {
           "type": "string"
         },
         "linkedinUrl": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "company": {
+          "type": "string"
+        },
+        "overview": {
+          "type": "string"
+        },
+        "suggestedEmail": {
+          "type": "string"
+        },
+        "potentialTopics": {
           "type": "string"
         }
       },

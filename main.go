@@ -176,7 +176,7 @@ func runGatewayServer(config util.Config, store db.Store, mongoDBStore mongodb.S
 
 // 	grpcServer := grpc.NewServer(serverOptions...)
 
-// 	pb.RegisterCineDeepMatchServer(grpcServer, server)
+// 	pb.RegisterDeeDeeMatchServer(grpcServer, server)
 // 	reflection.Register(grpcServer)
 
 // 	listener, err := net.Listen("tcp", config.GRPCServerAddress)

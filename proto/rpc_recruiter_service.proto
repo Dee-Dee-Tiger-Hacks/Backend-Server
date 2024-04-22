@@ -18,8 +18,15 @@ message Recruiter {
 
 // Create Recruiter
 message CreateRecruiterRequest {
-    string user_id = 1;
-    string linkedin_url = 2;
+    string id = 1;
+    string user_id = 2;
+    optional string linkedin_url = 3; 
+    optional string name = 4;
+    optional string email = 5;
+    optional string company = 6;
+    optional string overview = 7;
+    optional string suggested_email = 8;
+    optional string potential_topics = 9;
 }
 
 message CreateRecruiterResponse {
