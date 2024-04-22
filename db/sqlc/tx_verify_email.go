@@ -3,12 +3,11 @@ package db
 import (
 	"context"
 
-	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5/pgtype"
 )
 
 type VerifyEmailTxParams struct {
-	EmailId    uuid.UUID
+	EmailId    int64
 	SecretCode string
 }
 

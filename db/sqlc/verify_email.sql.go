@@ -55,8 +55,8 @@ RETURNING id, user_id, email, secret_code, is_used, created_at, expired_at
 `
 
 type UpdateVerifyEmailParams struct {
-	ID         uuid.UUID `json:"id"`
-	SecretCode string    `json:"secret_code"`
+	ID         int64  `json:"id"`
+	SecretCode string `json:"secret_code"`
 }
 
 func (q *Queries) UpdateVerifyEmail(ctx context.Context, arg UpdateVerifyEmailParams) (VerifyEmail, error) {

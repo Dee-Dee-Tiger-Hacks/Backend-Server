@@ -274,7 +274,8 @@
             "name": "emailId",
             "in": "query",
             "required": false,
-            "type": "string"
+            "type": "string",
+            "format": "int64"
           },
           {
             "name": "secretCode",

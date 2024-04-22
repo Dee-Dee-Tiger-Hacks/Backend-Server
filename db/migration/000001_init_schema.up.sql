@@ -36,7 +36,7 @@ CREATE TABLE "recruiters" (
 );
 
 CREATE TABLE "verify_emails" (
-  "id" uuid PRIMARY KEY,
+  "id" bigserial PRIMARY KEY,
   "user_id" uuid NOT NULL,
   "email" varchar NOT NULL,
   "secret_code" varchar NOT NULL,

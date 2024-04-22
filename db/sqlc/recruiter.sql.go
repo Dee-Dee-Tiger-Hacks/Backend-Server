@@ -14,7 +14,8 @@ import (
 
 const createRecruiter = `-- name: CreateRecruiter :one
 INSERT INTO recruiters (
-  user_id ,
+  id,
+  user_id,
   linkedin_url,
   name,
   company,
@@ -23,11 +24,12 @@ INSERT INTO recruiters (
   suggested_email,
   potential_topics
 ) VALUES (
-    $1, $2, $3, $4, $5, $6, $7, $8
+    $1, $2, $3, $4, $5, $6, $7, $8, $9
 ) RETURNING id, user_id, linkedin_url, name, company, email, overview, suggested_email, potential_topics, create_at
 `
 
 type CreateRecruiterParams struct {
+	ID              uuid.UUID `json:"id"`
 	UserID          uuid.UUID `json:"user_id"`
 	LinkedinUrl     string    `json:"linkedin_url"`
 	Name            string    `json:"name"`
@@ -40,6 +42,7 @@ type CreateRecruiterParams struct {
 
 func (q *Queries) CreateRecruiter(ctx context.Context, arg CreateRecruiterParams) (Recruiter, error) {
 	row := q.db.QueryRow(ctx, createRecruiter,
+		arg.ID,
 		arg.UserID,
 		arg.LinkedinUrl,
 		arg.Name,

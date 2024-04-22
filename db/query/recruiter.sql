@@ -1,6 +1,7 @@
 -- name: CreateRecruiter :one
 INSERT INTO recruiters (
-  user_id ,
+  id,
+  user_id,
   linkedin_url,
   name,
   company,
@@ -9,7 +10,7 @@ INSERT INTO recruiters (
   suggested_email,
   potential_topics
 ) VALUES (
-    $1, $2, $3, $4, $5, $6, $7, $8
+    $1, $2, $3, $4, $5, $6, $7, $8, $9
 ) RETURNING *;
 
 -- name: GetRecruiterById :one

@@ -6,7 +6,7 @@ option go_package = "github.com/Dee-Dee-Tiger-Hacks/Backend-Server/pb";
 
 // Create User
 message VerifyEmailRequest {
-    string email_id = 1;
+    int64 email_id = 1;
     string secret_code = 2;
 }
 

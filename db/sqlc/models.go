@@ -47,7 +47,7 @@ type User struct {
 }
 
 type VerifyEmail struct {
-	ID         uuid.UUID `json:"id"`
+	ID         int64     `json:"id"`
 	UserID     uuid.UUID `json:"user_id"`
 	Email      string    `json:"email"`
 	SecretCode string    `json:"secret_code"`
