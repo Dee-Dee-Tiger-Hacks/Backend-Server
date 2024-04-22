@@ -3,9 +3,18 @@ syntax = "proto3";
 package pb;
 
 import "google/protobuf/timestamp.proto";
-import "user.proto";
 
-option go_package = "github.com/CineDeepMatch/Backend-server/pb";
+option go_package = "github.com/Dee-Dee-Tiger-Hacks/Backend-Server/pb";
+
+message User {
+    string id = 1;
+    string username = 2;
+    string full_name = 3;
+    string email = 4;
+    string linkedin_url = 5;
+    google.protobuf.Timestamp password_changed_at = 6;
+    google.protobuf.Timestamp created_at = 7;
+}
 
 // Create User
 message CreateUserRequest {
@@ -13,6 +22,7 @@ message CreateUserRequest {
     string full_name = 2;
     string email = 3;
     string password = 4;
+    string linkedin_url = 5;
 }
 
 message CreateUserResponse {
@@ -25,6 +35,7 @@ message UpdateUserRequest {
     optional string full_name = 2;
     optional string email = 3;
     optional string password = 4;
+    optional string linkedin_url = 5;
 }
 
 message UpdateUserResponse {

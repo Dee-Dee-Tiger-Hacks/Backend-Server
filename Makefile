@@ -1,13 +1,13 @@
-DB_URL=postgresql://dat:secret@localhost:5432/cine-deep-match?sslmode=disable
+DB_URL=postgresql://deedee:secret@localhost:5432/dee-dee?sslmode=disable
 
 postgres:
-	docker run --name postgres-cdm --network cdm-network -p 5432:5432 -e POSTGRES_USER=dat -e POSTGRES_PASSWORD=secret -d postgres:12-alpine
+	docker run --name postgres-dee-dee -p 5432:5432 -e POSTGRES_USER=deedee -e POSTGRES_PASSWORD=secret -d postgres:12-alpine
 
 createdb:
-	docker exec -it postgres-cdm createdb --username=dat --owner=dat cine-deep-match
+	docker exec -it postgres-dee-dee createdb --username=deedee --owner=deedee dee-dee
 
 dropdb:
-	docker exec -it postgres-cdm dropdb --username=dat cine-deep-match
+	docker exec -it postgres-dee-dee dropdb --username=deedee dee-dee
 
 migrateup:
 	migrate -path db/migration -database "$(DB_URL)" -verbose up
@@ -28,8 +28,6 @@ test:
 	go test -v -cover -short ./...
 server:
 	go run main.go
-mock:
-	mockgen -package mockdb -destination db/mock/store.go github.com/CineDeepMatch/Backend-server/db/sqlc Store
 new_migration:
 	migrate create -ext sql -dir db/migration -seq $(name)
 proto: 

@@ -5,8 +5,8 @@ import (
 	"encoding/json"
 	"fmt"
 
-	db "github.com/CineDeepMatch/Backend-server/db/sqlc"
-	util "github.com/CineDeepMatch/Backend-server/db/utils"
+	db "github.com/Dee-Dee-Tiger-Hacks/Backend-Server/db/sqlc"
+	util "github.com/Dee-Dee-Tiger-Hacks/Backend-Server/db/utils"
 	"github.com/hibiken/asynq"
 	"github.com/rs/zerolog/log"
 )
@@ -43,9 +43,6 @@ func (proccessor *RedisTaskProcessor) ProcessTaskSendVerifyEmail(ctx context.Con
 	}
 	user, err := proccessor.store.GetUser(ctx, payload.Username)
 	if err != nil {
-		// if err == sql.ErrNoRows {
-		// 	return fmt.Errorf("user doesn't exist: %w ", asynq.SkipRetry)
-		// }
 		return fmt.Errorf("faild to get user: %w", err)
 	}
 
@@ -61,7 +58,7 @@ func (proccessor *RedisTaskProcessor) ProcessTaskSendVerifyEmail(ctx context.Con
 		return fmt.Errorf("failed to create verify email: %w", err)
 	}
 
-	subject := "Welcome to CineDeepMatch"
+	subject := "Welcome to DeeDee! Please verify your email address"
 	// TODO: replace this URL with an environment variable that points to a front-end page
 	verifyUrl := fmt.Sprintf("http://localhost:8080/v1/verify_email?email_id=%d&secret_code=%s",
 		verifyEmail.ID, verifyEmail.SecretCode)

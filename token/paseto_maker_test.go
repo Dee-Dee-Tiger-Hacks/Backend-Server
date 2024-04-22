@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	util "github.com/CineDeepMatch/Backend-server/db/utils"
+	util "github.com/Dee-Dee-Tiger-Hacks/Backend-Server/db/utils"
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/require"
 )

@@ -1,15 +1,15 @@
 package gapi
 
 import (
-	db "github.com/CineDeepMatch/Backend-server/db/sqlc"
-	util "github.com/CineDeepMatch/Backend-server/db/utils"
-	mongodb "github.com/CineDeepMatch/Backend-server/mongodb/repositories"
-	"github.com/CineDeepMatch/Backend-server/pb"
-	"github.com/CineDeepMatch/Backend-server/token"
+	db "github.com/Dee-Dee-Tiger-Hacks/Backend-Server/db/sqlc"
+	util "github.com/Dee-Dee-Tiger-Hacks/Backend-Server/db/utils"
+	mongodb "github.com/Dee-Dee-Tiger-Hacks/Backend-Server/mongodb/repositories"
+	"github.com/Dee-Dee-Tiger-Hacks/Backend-Server/pb"
+	"github.com/Dee-Dee-Tiger-Hacks/Backend-Server/token"
 )
 
 type AuthServer struct {
-	pb.UnimplementedCineDeepMatchServer
+	pb.UnimplementedDeeDeeServer
 	config       util.Config
 	store        db.Store
 	tokenMaker   token.Maker

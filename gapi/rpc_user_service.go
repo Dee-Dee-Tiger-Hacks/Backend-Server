@@ -6,11 +6,11 @@ import (
 	"errors"
 	"time"
 
-	db "github.com/CineDeepMatch/Backend-server/db/sqlc"
-	util "github.com/CineDeepMatch/Backend-server/db/utils"
-	"github.com/CineDeepMatch/Backend-server/pb"
-	"github.com/CineDeepMatch/Backend-server/val"
-	"github.com/CineDeepMatch/Backend-server/worker"
+	db "github.com/Dee-Dee-Tiger-Hacks/Backend-Server/db/sqlc"
+	util "github.com/Dee-Dee-Tiger-Hacks/Backend-Server/db/utils"
+	"github.com/Dee-Dee-Tiger-Hacks/Backend-Server/pb"
+	"github.com/Dee-Dee-Tiger-Hacks/Backend-Server/val"
+	"github.com/Dee-Dee-Tiger-Hacks/Backend-Server/worker"
 	"github.com/google/uuid"
 	"github.com/hibiken/asynq"
 	"github.com/jackc/pgx/v5/pgtype"
@@ -45,10 +45,6 @@ func (server *Server) CreateUser(ctx context.Context, req *pb.CreateUserRequest)
 			HashedPassword: hashedPassword,
 			FullName:       req.GetFullName(),
 			Email:          req.GetEmail(),
-		},
-		CreateFavMoviesParams: db.CreateFavMoviesParams{
-			UserID: userId,
-			Movies: "",
 		},
 		AfterCreate: func(user db.User) error {
 			taskPayload := &worker.PayloadSendVerifyEmail{

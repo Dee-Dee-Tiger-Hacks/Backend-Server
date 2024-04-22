@@ -1,12 +1,10 @@
 package gapi
 
 import (
-	"strings"
 	"time"
 
-	db "github.com/CineDeepMatch/Backend-server/db/sqlc"
-	mongodb "github.com/CineDeepMatch/Backend-server/mongodb/repositories"
-	"github.com/CineDeepMatch/Backend-server/pb"
+	db "github.com/Dee-Dee-Tiger-Hacks/Backend-Server/db/sqlc"
+	"github.com/Dee-Dee-Tiger-Hacks/Backend-Server/pb"
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
@@ -21,56 +19,31 @@ func convertUser(user db.User) *pb.User {
 	}
 }
 
-func convertActivity(activity db.Activity) *pb.Activity {
-	return &pb.Activity{
-		Id:            activity.ID.String(),
-		UserId:        activity.UserID.String(),
-		ViewPage:      activity.ViewPage,
-		Duration:      activity.Duration,
-		PageVisitedAt: timestamppb.New(activity.PageVisitedAt),
+func convertRecruiter(recruiter db.Recruiter) *pb.Recruiter {
+	return &pb.Recruiter{
+		Id:              recruiter.ID.String(),
+		UserId:          recruiter.UserID.String(),
+		LinkedinUrl:     recruiter.LinkedinUrl,
+		Company:         recruiter.Company,
+		Email:           recruiter.Email,
+		Overview:        recruiter.Overview,
+		SuggestedEmail:  recruiter.SuggestedEmail,
+		PotentialTopics: recruiter.PotentialTopics,
 	}
 }
 
-func convertActivities(activities []db.Activity) []*pb.Activity {
-	res := []*pb.Activity{}
-	for i := 0; i < len(activities); i++ {
-		res = append(res, &pb.Activity{
-			Id:            activities[i].ID.String(),
-			UserId:        activities[i].UserID.String(),
-			ViewPage:      activities[i].ViewPage,
-			Duration:      activities[i].Duration,
-			PageVisitedAt: timestamppb.New(activities[i].PageVisitedAt),
-		})
-	}
-	return res
-}
-
-func convertFavMovies(favMovies db.FavMovie) *pb.FavMovies {
-	return &pb.FavMovies{
-		UserId:   favMovies.UserID.String(),
-		MovieIds: strings.Split(favMovies.Movies, " "),
-	}
-}
-
-func convertMovie(movie mongodb.Movie) *pb.Movie {
-	return &pb.Movie{
-		Id:         movie.ID,
-		Title:      movie.Title,
-		Characters: movie.Characters,
-		Genres:     movie.Genres,
-		Rating:     movie.Rating,
-	}
-}
-
-func convertMovies(movies []mongodb.Movie) []*pb.Movie {
-	res := []*pb.Movie{}
-	for i := 0; i < len(movies); i++ {
-		res = append(res, &pb.Movie{
-			Id:         movies[i].ID,
-			Title:      movies[i].Title,
-			Characters: movies[i].Characters,
-			Genres:     movies[i].Genres,
-			Rating:     movies[i].Rating,
+func convertRecruiters(recruiters []db.Recruiter) []*pb.Recruiter {
+	res := []*pb.Recruiter{}
+	for i := 0; i < len(recruiters); i++ {
+		res = append(res, &pb.Recruiter{
+			Id:              recruiters[i].ID.String(),
+			UserId:          recruiters[i].UserID.String(),
+			LinkedinUrl:     recruiters[i].LinkedinUrl,
+			Company:         recruiters[i].Company,
+			Email:           recruiters[i].Email,
+			Overview:        recruiters[i].Overview,
+			SuggestedEmail:  recruiters[i].SuggestedEmail,
+			PotentialTopics: recruiters[i].PotentialTopics,
 		})
 	}
 	return res

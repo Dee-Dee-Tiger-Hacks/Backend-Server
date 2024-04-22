@@ -3,8 +3,8 @@ package worker
 import (
 	"context"
 
-	db "github.com/CineDeepMatch/Backend-server/db/sqlc"
-	"github.com/CineDeepMatch/Backend-server/mail"
+	db "github.com/Dee-Dee-Tiger-Hacks/Backend-Server/db/sqlc"
+	"github.com/Dee-Dee-Tiger-Hacks/Backend-Server/mail"
 	"github.com/hibiken/asynq"
 	"github.com/rs/zerolog/log"
 )

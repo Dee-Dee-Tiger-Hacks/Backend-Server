@@ -8,20 +8,19 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/jackc/pgx/v5/pgtype"
 )
 
 type Recruiter struct {
-	ID              uuid.UUID   `json:"id"`
-	UserID          uuid.UUID   `json:"user_id"`
-	LinkedinUrl     string      `json:"linkedin_url"`
-	Name            pgtype.Text `json:"name"`
-	Company         pgtype.Text `json:"company"`
-	Email           pgtype.Text `json:"email"`
-	Overview        pgtype.Text `json:"overview"`
-	SuggestedEmail  pgtype.Text `json:"suggested_email"`
-	PotentialTopics pgtype.Text `json:"potential_topics"`
-	CreateAt        time.Time   `json:"create_at"`
+	ID              uuid.UUID `json:"id"`
+	UserID          uuid.UUID `json:"user_id"`
+	LinkedinUrl     string    `json:"linkedin_url"`
+	Name            string    `json:"name"`
+	Company         string    `json:"company"`
+	Email           string    `json:"email"`
+	Overview        string    `json:"overview"`
+	SuggestedEmail  string    `json:"suggested_email"`
+	PotentialTopics string    `json:"potential_topics"`
+	CreateAt        time.Time `json:"create_at"`
 }
 
 type Session struct {

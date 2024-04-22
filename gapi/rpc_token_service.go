@@ -5,8 +5,8 @@ import (
 	"errors"
 	"time"
 
-	db "github.com/CineDeepMatch/Backend-server/db/sqlc"
-	"github.com/CineDeepMatch/Backend-server/pb"
+	db "github.com/Dee-Dee-Tiger-Hacks/Backend-Server/db/sqlc"
+	"github.com/Dee-Dee-Tiger-Hacks/Backend-Server/pb"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )

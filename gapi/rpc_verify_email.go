@@ -3,9 +3,10 @@ package gapi
 import (
 	"context"
 
-	db "github.com/CineDeepMatch/Backend-server/db/sqlc"
-	"github.com/CineDeepMatch/Backend-server/pb"
-	"github.com/CineDeepMatch/Backend-server/val"
+	db "github.com/Dee-Dee-Tiger-Hacks/Backend-Server/db/sqlc"
+	"github.com/Dee-Dee-Tiger-Hacks/Backend-Server/pb"
+	"github.com/Dee-Dee-Tiger-Hacks/Backend-Server/val"
+	"github.com/google/uuid"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -16,9 +17,14 @@ func (server *Server) VerifyEmail(ctx context.Context, req *pb.VerifyEmailReques
 	if violations != nil {
 		return nil, invalidArgumentError(violations)
 	}
+	emailId, err := uuid.Parse(req.GetEmailId())
+
+	if err != nil {
+		return nil, status.Errorf(codes.InvalidArgument, "invalid email id: %s", err)
+	}
 
 	txResult, err := server.store.VerifyEmailTx(ctx, db.VerifyEmailTxParams{
-		EmailId:    req.GetEmailId(),
+		EmailId:    emailId,
 		SecretCode: req.GetSecretCode(),
 	})
 	if err != nil {

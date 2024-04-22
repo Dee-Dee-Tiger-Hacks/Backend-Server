@@ -3,9 +3,9 @@ services:
   postgres: 
     image: postgres:14-alpine
     environment:
-      - POSTGRES_USER=dat
+      - POSTGRES_USER=deedee
       - POSTGRES_PASSWORD=secret
-      - POSTGRES_DB=cine-deep-match
+      - POSTGRES_DB=dee-dee
     ports: 
       - "5432:5432"
   redis:
@@ -20,7 +20,7 @@ services:
       - "8080:8080"
       - "9090:9090"
     environment:
-      - DB_SOURCE=postgresql://dat:secret@postgres:5432/cine-deep-match?sslmode=disable
+      - DB_SOURCE=postgresql://deedee:secret@postgres:5432/dee-dee?sslmode=disable
       - REDIS_SERVER_ADDRESS=redis:6379
     depends_on:
       - postgres

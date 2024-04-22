@@ -4,7 +4,7 @@ package pb;
 
 import "google/protobuf/timestamp.proto";
 
-option go_package = "github.com/CineDeepMatch/Backend-server/pb";
+option go_package = "github.com/Dee-Dee-Tiger-Hacks/Backend-Server/pb";
 
 message Token {
     string token = 1;

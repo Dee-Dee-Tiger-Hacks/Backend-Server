@@ -2,11 +2,11 @@ syntax = "proto3";
 
 package pb;
 
-option go_package = "github.com/CineDeepMatch/Backend-server/pb";
+option go_package = "github.com/Dee-Dee-Tiger-Hacks/Backend-Server/pb";
 
 // Create User
 message VerifyEmailRequest {
-    int64 email_id = 1;
+    string email_id = 1;
     string secret_code = 2;
 }
 

@@ -3,7 +3,7 @@ package mail
 import (
 	"testing"
 
-	util "github.com/CineDeepMatch/Backend-server/db/utils"
+	util "github.com/Dee-Dee-Tiger-Hacks/Backend-Server/db/utils"
 	"github.com/stretchr/testify/require"
 )
 
@@ -20,7 +20,7 @@ func TestSendEmailWithGmail(t *testing.T) {
 	subject := "A test email"
 	content := `
 	<h1>Hello</h1>
-	<p>This is a test message from CineDeepMatch</p>
+	<p>This is a test message from DeeDee</p>
 	`
 	to := []string{"tuanle_2025@depauw.edu"}
 	attachFiles := []string{"../README.md"}

@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package pb;
+
+option go_package = "github.com/Dee-Dee-Tiger-Hacks/Backend-Server/pb";
+
+message Recruiter {
+    string id = 1;
+    string user_id = 2;
+    string linkedin_url = 3; 
+    string name = 4;
+    string email = 5;
+    string company = 6;
+    string overview = 7;
+    string suggested_email = 8;
+    string potential_topics = 9;
+}
+
+// Create Recruiter
+message CreateRecruiterRequest {
+    string user_id = 1;
+    string linkedin_url = 2;
+}
+
+message CreateRecruiterResponse {
+    Recruiter recruiter = 1;
+}
+
+// Get Recruiter
+message GetRecruiterRequest {
+    string recruiter_id = 1;
+}
+
+message GetRecruiterResponse {
+    Recruiter recruiter = 1;
+}
+
+// Get Recruiters
+message GetRecruitersRequest {
+    string user_id = 1;
+}
+
+message GetRecruitersResponse {
+    repeated Recruiter recruiters = 1;
+}

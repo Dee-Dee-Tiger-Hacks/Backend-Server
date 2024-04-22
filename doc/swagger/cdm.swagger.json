@@ -1,11 +1,11 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "CineDeepMatch API",
+    "title": "DeeDee API",
     "version": "1.0",
     "contact": {
       "name": "Dat",
-      "url": "https://github.com/CineDeepMatch/Backend-server",
+      "url": "https://github.com/Dee-Dee-Tiger-Hacks/Backend-Server",
       "email": "trongdatvuong@gmail.com"
     },
     "license": {
@@ -16,7 +16,7 @@
   },
   "tags": [
     {
-      "name": "CineDeepMatch"
+      "name": "DeeDee"
     }
   ],
   "consumes": [
@@ -26,14 +26,14 @@
     "application/json"
   ],
   "paths": {
-    "/v1/create_activity": {
+    "/v1/create_recruiter": {
       "post": {
-        "operationId": "CineDeepMatch_CreateActivity",
+        "operationId": "DeeDee_CreateRecruiter",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/pbCreateActivityResponse"
+              "$ref": "#/definitions/pbCreateRecruiterResponse"
             }
           },
           "default": {
@@ -49,50 +49,18 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/pbCreateActivityRequest"
+              "$ref": "#/definitions/pbCreateRecruiterRequest"
             }
           }
         ],
         "tags": [
-          "CineDeepMatch"
-        ]
-      }
-    },
-    "/v1/create_fav_movies": {
-      "post": {
-        "operationId": "CineDeepMatch_CreateFavMovies",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/pbCreateFavMoviesResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/pbCreateFavMoviesRequest"
-            }
-          }
-        ],
-        "tags": [
-          "CineDeepMatch"
+          "DeeDee"
         ]
       }
     },
     "/v1/create_user": {
       "post": {
-        "operationId": "CineDeepMatch_CreateUser",
+        "operationId": "DeeDee_CreateUser",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -118,18 +86,48 @@
           }
         ],
         "tags": [
-          "CineDeepMatch"
+          "DeeDee"
         ]
       }
     },
-    "/v1/get_activities/{userId}": {
+    "/v1/get_recruiter/{recruiterId}": {
       "get": {
-        "operationId": "CineDeepMatch_GetActivities",
+        "operationId": "DeeDee_GetRecruiter",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/pbGetActivitiesResponse"
+              "$ref": "#/definitions/pbGetRecruiterResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "recruiterId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "DeeDee"
+        ]
+      }
+    },
+    "/v1/get_recruiters/{userId}": {
+      "get": {
+        "operationId": "DeeDee_GetRecruiters",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbGetRecruitersResponse"
             }
           },
           "default": {
@@ -148,111 +146,13 @@
           }
         ],
         "tags": [
-          "CineDeepMatch"
-        ]
-      }
-    },
-    "/v1/get_fav_movies/{userId}": {
-      "get": {
-        "operationId": "CineDeepMatch_GetFavMovies",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/pbGetFavMoviesResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "CineDeepMatch"
-        ]
-      }
-    },
-    "/v1/get_movie/{movieId}": {
-      "get": {
-        "operationId": "CineDeepMatch_GetMovie",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/pbGetMovieResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "movieId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "CineDeepMatch"
-        ]
-      }
-    },
-    "/v1/get_movies": {
-      "get": {
-        "operationId": "CineDeepMatch_GetManyMovies",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/pbGetManyMoviesResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "pageSize",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "format": "int64"
-          },
-          {
-            "name": "pageNumber",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "format": "int64"
-          }
-        ],
-        "tags": [
-          "CineDeepMatch"
+          "DeeDee"
         ]
       }
     },
     "/v1/login_user": {
       "post": {
-        "operationId": "CineDeepMatch_LoginUser",
+        "operationId": "DeeDee_LoginUser",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -278,13 +178,13 @@
           }
         ],
         "tags": [
-          "CineDeepMatch"
+          "DeeDee"
         ]
       }
     },
     "/v1/renew_access_token": {
       "post": {
-        "operationId": "CineDeepMatch_RenewAccessToken",
+        "operationId": "DeeDee_RenewAccessToken",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -310,51 +210,13 @@
           }
         ],
         "tags": [
-          "CineDeepMatch"
-        ]
-      }
-    },
-    "/v1/update_fav_movies/{userId}": {
-      "put": {
-        "operationId": "CineDeepMatch_UpdateFavMovies",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/pbUpdateFavMoviesResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/CineDeepMatchUpdateFavMoviesBody"
-            }
-          }
-        ],
-        "tags": [
-          "CineDeepMatch"
+          "DeeDee"
         ]
       }
     },
     "/v1/update_user/{userId}": {
       "put": {
-        "operationId": "CineDeepMatch_UpdateUser",
+        "operationId": "DeeDee_UpdateUser",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -381,18 +243,18 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/CineDeepMatchUpdateUserBody"
+              "$ref": "#/definitions/DeeDeeUpdateUserBody"
             }
           }
         ],
         "tags": [
-          "CineDeepMatch"
+          "DeeDee"
         ]
       }
     },
     "/v1/verify_email": {
       "get": {
-        "operationId": "CineDeepMatch_VerifyEmail",
+        "operationId": "DeeDee_VerifyEmail",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -412,8 +274,7 @@
             "name": "emailId",
             "in": "query",
             "required": false,
-            "type": "string",
-            "format": "int64"
+            "type": "string"
           },
           {
             "name": "secretCode",
@@ -423,25 +284,13 @@
           }
         ],
         "tags": [
-          "CineDeepMatch"
+          "DeeDee"
         ]
       }
     }
   },
   "definitions": {
-    "CineDeepMatchUpdateFavMoviesBody": {
-      "type": "object",
-      "properties": {
-        "movieIds": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "title": "Update Fav Movies"
-    },
-    "CineDeepMatchUpdateUserBody": {
+    "DeeDeeUpdateUserBody": {
       "type": "object",
       "properties": {
         "fullName": {
@@ -452,80 +301,30 @@
         },
         "password": {
           "type": "string"
+        },
+        "linkedinUrl": {
+          "type": "string"
         }
       },
       "title": "Update User"
     },
-    "pbActivity": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "userId": {
-          "type": "string"
-        },
-        "viewPage": {
-          "type": "string"
-        },
-        "duration": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "pageVisitedAt": {
-          "type": "string",
-          "format": "date-time"
-        }
-      }
-    },
-    "pbCreateActivityRequest": {
+    "pbCreateRecruiterRequest": {
       "type": "object",
       "properties": {
         "userId": {
           "type": "string"
         },
-        "viewPage": {
+        "linkedinUrl": {
           "type": "string"
-        },
-        "duration": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "pageVisitedAt": {
-          "type": "string",
-          "format": "date-time"
         }
       },
-      "title": "Create Activity"
+      "title": "Create Recruiter"
     },
-    "pbCreateActivityResponse": {
+    "pbCreateRecruiterResponse": {
       "type": "object",
       "properties": {
-        "activity": {
-          "$ref": "#/definitions/pbActivity"
-        }
-      }
-    },
-    "pbCreateFavMoviesRequest": {
-      "type": "object",
-      "properties": {
-        "userId": {
-          "type": "string"
-        },
-        "movieIds": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "title": "Create Fav Movies"
-    },
-    "pbCreateFavMoviesResponse": {
-      "type": "object",
-      "properties": {
-        "favMovies": {
-          "$ref": "#/definitions/pbFavMovies"
+        "recruiter": {
+          "$ref": "#/definitions/pbRecruiter"
         }
       }
     },
@@ -543,6 +342,9 @@
         },
         "password": {
           "type": "string"
+        },
+        "linkedinUrl": {
+          "type": "string"
         }
       },
       "title": "Create User"
@@ -555,61 +357,23 @@
         }
       }
     },
-    "pbFavMovies": {
+    "pbGetRecruiterResponse": {
       "type": "object",
       "properties": {
-        "userId": {
-          "type": "string"
-        },
-        "movieIds": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+        "recruiter": {
+          "$ref": "#/definitions/pbRecruiter"
         }
       }
     },
-    "pbGetActivitiesResponse": {
+    "pbGetRecruitersResponse": {
       "type": "object",
       "properties": {
-        "activities": {
+        "recruiters": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/pbActivity"
+            "$ref": "#/definitions/pbRecruiter"
           }
-        }
-      }
-    },
-    "pbGetFavMoviesResponse": {
-      "type": "object",
-      "properties": {
-        "movies": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/pbMovie"
-          }
-        }
-      }
-    },
-    "pbGetManyMoviesResponse": {
-      "type": "object",
-      "properties": {
-        "movies": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/pbMovie"
-          }
-        }
-      }
-    },
-    "pbGetMovieResponse": {
-      "type": "object",
-      "properties": {
-        "movie": {
-          "$ref": "#/definitions/pbMovie"
         }
       }
     },
@@ -650,30 +414,35 @@
         }
       }
     },
-    "pbMovie": {
+    "pbRecruiter": {
       "type": "object",
       "properties": {
         "id": {
           "type": "string"
         },
-        "title": {
+        "userId": {
           "type": "string"
         },
-        "characters": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+        "linkedinUrl": {
+          "type": "string"
         },
-        "genres": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+        "name": {
+          "type": "string"
         },
-        "rating": {
-          "type": "number",
-          "format": "double"
+        "email": {
+          "type": "string"
+        },
+        "company": {
+          "type": "string"
+        },
+        "overview": {
+          "type": "string"
+        },
+        "suggestedEmail": {
+          "type": "string"
+        },
+        "potentialTopics": {
+          "type": "string"
         }
       }
     },
@@ -705,14 +474,6 @@
         }
       }
     },
-    "pbUpdateFavMoviesResponse": {
-      "type": "object",
-      "properties": {
-        "favMovies": {
-          "$ref": "#/definitions/pbFavMovies"
-        }
-      }
-    },
     "pbUpdateUserResponse": {
       "type": "object",
       "properties": {
@@ -734,6 +495,9 @@
           "type": "string"
         },
         "email": {
+          "type": "string"
+        },
+        "linkedinUrl": {
           "type": "string"
         },
         "passwordChangedAt": {

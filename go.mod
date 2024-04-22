@@ -3,7 +3,7 @@ module github.com/Dee-Dee-Tiger-Hacks/Backend-Server
 go 1.21.6
 
 require (
-	github.com/CineDeepMatch/Backend-server v0.0.0-20240204032825-ae5245d006ad
+	github.com/Dee-Dee-Tiger-Hacks/Backend-Server v0.0.0-20240204032825-ae5245d006ad
 	github.com/aead/chacha20poly1305 v0.0.0-20201124145622-1a5aba2a8b29
 	github.com/golang-migrate/migrate/v4 v4.17.1
 	github.com/golang/mock v1.6.0

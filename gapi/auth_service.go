@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/CineDeepMatch/Backend-server/token"
+	"github.com/Dee-Dee-Tiger-Hacks/Backend-Server/token"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
 )

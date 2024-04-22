@@ -4,7 +4,7 @@ package pb;
 
 import "token.proto";
 
-option go_package = "github.com/CineDeepMatch/Backend-server/pb";
+option go_package = "github.com/Dee-Dee-Tiger-Hacks/Backend-Server/pb";
 
 message RenewAccessTokenRequest  {
     string refresh_token = 1;

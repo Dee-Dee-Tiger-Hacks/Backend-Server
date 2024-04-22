@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+package pb;
+
+import "rpc_user_service.proto";
+import "rpc_recruiter_service.proto";
+import "rpc_verify_email.proto";
+import "rpc_token_service.proto";
+
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+option go_package = "github.com/Dee-Dee-Tiger-Hacks/Backend-Server/pb";
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info: {
+    title: "DeeDee API";
+    version: "1.0";
+    contact: {
+      name: "Dat";
+      url: "https://github.com/Dee-Dee-Tiger-Hacks/Backend-Server";
+      email: "trongdatvuong@gmail.com";
+    };
+    license: {
+      name: "BSD 3-Clause License";
+      url: "https://github.com/grpc-ecosystem/grpc-gateway/blob/main/LICENSE";
+    };
+    extensions: {
+      key: "x-something-something";
+      value {string_value: "yadda"}
+    }
+  };
+};
+
+service DeeDee {
+    rpc CreateUser (CreateUserRequest) returns (CreateUserResponse) {
+        option (google.api.http) = {
+            post: "/v1/create_user"
+            body: "*"
+        };
+    };
+    rpc UpdateUser (UpdateUserRequest) returns (UpdateUserResponse) {
+      option (google.api.http) = {
+          put: "/v1/update_user/{user_id}"
+          body: "*"
+      };
+    };
+    rpc LoginUser (LoginUserRequest) returns (LoginUserResponse) {
+        option (google.api.http) = {
+            post: "/v1/login_user"
+            body: "*"
+        };
+    };
+    rpc CreateRecruiter (CreateRecruiterRequest) returns (CreateRecruiterResponse) {
+      option (google.api.http) = {
+          post: "/v1/create_recruiter"
+          body: "*"
+      };
+    };
+    rpc GetRecruiters (GetRecruitersRequest) returns (GetRecruitersResponse) {
+      option (google.api.http) = {
+          get: "/v1/get_recruiters/{user_id}"
+      };
+    };
+    rpc GetRecruiter (GetRecruiterRequest) returns (GetRecruiterResponse) {
+      option (google.api.http) = {
+          get: "/v1/get_recruiter/{recruiter_id}"
+      };
+    };
+    rpc VerifyEmail (VerifyEmailRequest) returns (VerifyEmailResponse) {
+      option (google.api.http) = {
+          get: "/v1/verify_email"
+      };
+    };  
+    rpc RenewAccessToken (RenewAccessTokenRequest) returns (RenewAccessTokenResponse) {
+      option (google.api.http) = {
+          post: "/v1/renew_access_token"
+          body: "*"
+      };
+    }; 
+}

@@ -18,13 +18,13 @@ import (
 	_ "github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
 
-	db "github.com/CineDeepMatch/Backend-server/db/sqlc"
-	util "github.com/CineDeepMatch/Backend-server/db/utils"
-	"github.com/CineDeepMatch/Backend-server/gapi"
-	"github.com/CineDeepMatch/Backend-server/mail"
-	mongodb "github.com/CineDeepMatch/Backend-server/mongodb/repositories"
-	"github.com/CineDeepMatch/Backend-server/pb"
-	"github.com/CineDeepMatch/Backend-server/worker"
+	db "github.com/Dee-Dee-Tiger-Hacks/Backend-Server/db/sqlc"
+	util "github.com/Dee-Dee-Tiger-Hacks/Backend-Server/db/utils"
+	"github.com/Dee-Dee-Tiger-Hacks/Backend-Server/gapi"
+	"github.com/Dee-Dee-Tiger-Hacks/Backend-Server/mail"
+	mongodb "github.com/Dee-Dee-Tiger-Hacks/Backend-Server/mongodb/repositories"
+	"github.com/Dee-Dee-Tiger-Hacks/Backend-Server/pb"
+	"github.com/Dee-Dee-Tiger-Hacks/Backend-Server/worker"
 	"github.com/rs/cors"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
@@ -58,7 +58,7 @@ func main() {
 	}
 	taskDistributor := worker.NewRedisTaskDistributor(redisOpt)
 
-	mongoDBStore := mongodb.NewStore(connMongoDB, "CineDeepMatch", "Movies")
+	mongoDBStore := mongodb.NewStore(connMongoDB, config.MongoDB_DB, config.MongoDB_Collection)
 
 	go runTaskProcessor(config, redisOpt, store)
 	go runGatewayServer(config, store, mongoDBStore, taskDistributor)
@@ -97,7 +97,7 @@ func runGrpcServer(config util.Config, store db.Store, mongoDBStore mongodb.Stor
 	}
 
 	grpcServer := grpc.NewServer()
-	pb.RegisterCineDeepMatchServer(grpcServer, server)
+	pb.RegisterDeeDeeServer(grpcServer, server)
 	reflection.Register(grpcServer)
 
 	listener, err := net.Listen("tcp", config.GRPCServerAddress)
@@ -134,7 +134,7 @@ func runGatewayServer(config util.Config, store db.Store, mongoDBStore mongodb.S
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	err = pb.RegisterCineDeepMatchHandlerServer(ctx, grpcMux, server)
+	err = pb.RegisterDeeDeeHandlerServer(ctx, grpcMux, server)
 
 	if err != nil {
 		log.Fatal().Err(err).Msg("cannot register handler server")

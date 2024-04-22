@@ -26,12 +26,12 @@ CREATE TABLE "recruiters" (
   "id" uuid PRIMARY KEY,
   "user_id" uuid NOT NULL,
   "linkedin_url" varchar NOT NULL,
-  "name" varchar NULL,
-  "company" varchar NULL,
-  "email" varchar NULL,
-  "overview" varchar NULL,
-  "suggested_email" varchar NULL,
-  "potential_topics" varchar NULL,
+  "name" varchar NOT NULL,
+  "company" varchar NOT NULL,
+  "email" varchar NOT NULL,
+  "overview" varchar NOT NULL,
+  "suggested_email" varchar NOT NULL,
+  "potential_topics" varchar NOT NULL,
   "create_at" timestamptz NOT NULL DEFAULT 'now()'
 );
 

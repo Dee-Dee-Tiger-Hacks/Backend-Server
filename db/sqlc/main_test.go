@@ -6,7 +6,7 @@ import (
 	"os"
 	"testing"
 
-	util "github.com/CineDeepMatch/Backend-server/db/utils"
+	util "github.com/Dee-Dee-Tiger-Hacks/Backend-Server/db/utils"
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 

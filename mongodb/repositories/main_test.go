@@ -6,7 +6,7 @@ import (
 	"os"
 	"testing"
 
-	util "github.com/CineDeepMatch/Backend-server/db/utils"
+	util "github.com/Dee-Dee-Tiger-Hacks/Backend-Server/db/utils"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -28,7 +28,7 @@ func TestMain(m *testing.M) {
 
 	defer connMongoDB.Disconnect(context.Background())
 
-	testStore = NewStore(connMongoDB, config.MongoDB_DBTest, config.MongoDB_CollectionTest)
+	testStore = NewStore(connMongoDB, config.MongoDBSource, config.MongoDB_Collection)
 
 	os.Exit(m.Run())
 }
