@@ -103,6 +103,22 @@ func (server *Server) UpdateUser(ctx context.Context, req *pb.UpdateUserRequest)
 			String: req.GetEmail(),
 			Valid:  req.Email != nil,
 		},
+		LinkedinUrl: pgtype.Text{
+			String: req.GetLinkedinUrl(),
+			Valid:  req.LinkedinUrl != nil,
+		},
+		Phone: pgtype.Text{
+			String: req.GetPhone(),
+			Valid:  req.Phone != nil,
+		},
+		AvatarUrl: pgtype.Text{
+			String: req.GetAvatarUrl(),
+			Valid:  req.AvatarUrl != nil,
+		},
+		JobTitle: pgtype.Text{
+			String: req.GetJobTitle(),
+			Valid:  req.JobTitle != nil,
+		},
 	}
 
 	if req.Password != nil {

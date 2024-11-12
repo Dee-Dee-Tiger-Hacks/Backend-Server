@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package pb;
+
+option go_package = "github.com/Dee-Dee-Tiger-Hacks/Backend-Server/pb";
+
+message Resume {
+    string id = 1;
+    string user_id = 2;
+    string resume_public_id = 3; 
+    string resume_title = 4;
+    string resume_pdf_url = 5;
+}
+
+// Create Resume
+message CreateResumeRequest {
+    string user_id = 1;
+    string resume_public_id = 2; 
+    string resume_title = 3;
+    string resume_pdf_url = 4;
+}
+
+message CreateResumeResponse {
+    Resume resume = 1;
+}
+
+// Get Resume
+message GetResumeRequest {
+    string user_id = 1;
+}
+
+message GetResumeResponse {
+    Resume resume = 1;
+}
+
+// Update Resume
+message UpdateResumeRequest {
+    string user_id = 1;
+    optional string resume_public_id = 2;
+    optional string resume_title = 3;
+    optional string resume_pdf_url = 4;
+}
+
+message UpdateResumeResponse {
+    Resume resume = 1;
+}
+

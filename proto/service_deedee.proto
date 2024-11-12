@@ -6,6 +6,7 @@ import "rpc_user_service.proto";
 import "rpc_recruiter_service.proto";
 import "rpc_verify_email.proto";
 import "rpc_token_service.proto";
+import "rpc_resume_service.proto";
 
 import "google/api/annotations.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
@@ -64,6 +65,23 @@ service DeeDee {
     rpc GetRecruiter (GetRecruiterRequest) returns (GetRecruiterResponse) {
       option (google.api.http) = {
           get: "/v1/get_recruiter/{recruiter_id}"
+      };
+    };
+    rpc GetResume (GetResumeRequest) returns (GetResumeResponse) {
+      option (google.api.http) = {
+          get: "/v1/get_resume/{user_id}"
+      };
+    };
+    rpc CreateResume (CreateResumeRequest) returns (CreateResumeResponse) {
+      option (google.api.http) = {
+          post: "/v1/create_resume"
+          body: "*"
+      };
+    };
+    rpc UpdateResume (UpdateResumeRequest) returns (UpdateResumeResponse) {
+      option (google.api.http) = {
+          put: "/v1/update_resume/{user_id}"
+          body: "*"
       };
     };
     rpc VerifyEmail (VerifyEmailRequest) returns (VerifyEmailResponse) {

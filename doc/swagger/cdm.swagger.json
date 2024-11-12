@@ -58,6 +58,38 @@
         ]
       }
     },
+    "/v1/create_resume": {
+      "post": {
+        "operationId": "DeeDee_CreateResume",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbCreateResumeResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/pbCreateResumeRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DeeDee"
+        ]
+      }
+    },
     "/v1/create_user": {
       "post": {
         "operationId": "DeeDee_CreateUser",
@@ -150,6 +182,36 @@
         ]
       }
     },
+    "/v1/get_resume/{userId}": {
+      "get": {
+        "operationId": "DeeDee_GetResume",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbGetResumeResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "DeeDee"
+        ]
+      }
+    },
     "/v1/login_user": {
       "post": {
         "operationId": "DeeDee_LoginUser",
@@ -206,6 +268,44 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/pbRenewAccessTokenRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DeeDee"
+        ]
+      }
+    },
+    "/v1/update_resume/{userId}": {
+      "put": {
+        "operationId": "DeeDee_UpdateResume",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbUpdateResumeResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeeDeeUpdateResumeBody"
             }
           }
         ],
@@ -291,6 +391,21 @@
     }
   },
   "definitions": {
+    "DeeDeeUpdateResumeBody": {
+      "type": "object",
+      "properties": {
+        "resumePublicId": {
+          "type": "string"
+        },
+        "resumeTitle": {
+          "type": "string"
+        },
+        "resumePdfUrl": {
+          "type": "string"
+        }
+      },
+      "title": "Update Resume"
+    },
     "DeeDeeUpdateUserBody": {
       "type": "object",
       "properties": {
@@ -304,6 +419,15 @@
           "type": "string"
         },
         "linkedinUrl": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "avatarUrl": {
+          "type": "string"
+        },
+        "jobTitle": {
           "type": "string"
         }
       },
@@ -350,6 +474,32 @@
         }
       }
     },
+    "pbCreateResumeRequest": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "resumePublicId": {
+          "type": "string"
+        },
+        "resumeTitle": {
+          "type": "string"
+        },
+        "resumePdfUrl": {
+          "type": "string"
+        }
+      },
+      "title": "Create Resume"
+    },
+    "pbCreateResumeResponse": {
+      "type": "object",
+      "properties": {
+        "resume": {
+          "$ref": "#/definitions/pbResume"
+        }
+      }
+    },
     "pbCreateUserRequest": {
       "type": "object",
       "properties": {
@@ -363,9 +513,6 @@
           "type": "string"
         },
         "password": {
-          "type": "string"
-        },
-        "linkedinUrl": {
           "type": "string"
         }
       },
@@ -396,6 +543,14 @@
             "type": "object",
             "$ref": "#/definitions/pbRecruiter"
           }
+        }
+      }
+    },
+    "pbGetResumeResponse": {
+      "type": "object",
+      "properties": {
+        "resume": {
+          "$ref": "#/definitions/pbResume"
         }
       }
     },
@@ -484,6 +639,26 @@
         }
       }
     },
+    "pbResume": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "resumePublicId": {
+          "type": "string"
+        },
+        "resumeTitle": {
+          "type": "string"
+        },
+        "resumePdfUrl": {
+          "type": "string"
+        }
+      }
+    },
     "pbToken": {
       "type": "object",
       "properties": {
@@ -493,6 +668,14 @@
         "expiresAt": {
           "type": "string",
           "format": "date-time"
+        }
+      }
+    },
+    "pbUpdateResumeResponse": {
+      "type": "object",
+      "properties": {
+        "resume": {
+          "$ref": "#/definitions/pbResume"
         }
       }
     },
@@ -520,6 +703,15 @@
           "type": "string"
         },
         "linkedinUrl": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "avatarUrl": {
+          "type": "string"
+        },
+        "jobTitle": {
           "type": "string"
         },
         "passwordChangedAt": {

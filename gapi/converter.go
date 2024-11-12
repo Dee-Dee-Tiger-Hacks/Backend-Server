@@ -14,8 +14,21 @@ func convertUser(user db.User) *pb.User {
 		Username:          user.Username,
 		FullName:          user.FullName,
 		Email:             user.Email,
+		LinkedinUrl:       user.LinkedinUrl,
+		Phone:             user.Phone,
+		AvatarUrl:         user.AvatarUrl,
+		JobTitle:          user.JobTitle,
 		PasswordChangedAt: timestamppb.New(user.PasswordChangedAt),
 		CreatedAt:         timestamppb.New(user.CreateAt),
+	}
+}
+
+func convertResume(resume db.Resume) *pb.Resume {
+	return &pb.Resume{
+		UserId:         resume.UserID.String(),
+		ResumePublicId: resume.ResumePublicID,
+		ResumeTitle:    resume.ResumeTitle,
+		ResumePdfUrl:   resume.ResumePdfUrl,
 	}
 }
 
