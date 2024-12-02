@@ -7,6 +7,7 @@ import "rpc_recruiter_service.proto";
 import "rpc_verify_email.proto";
 import "rpc_token_service.proto";
 import "rpc_resume_service.proto";
+import "rpc_email_service.proto";
 
 import "google/api/annotations.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
@@ -33,6 +34,11 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
 };
 
 service DeeDee {
+    rpc GetUser (GetUserRequest) returns (GetUserResponse) {
+        option (google.api.http) = {
+            get: "/v1/get_user/{user_id}"
+        };
+    };
     rpc CreateUser (CreateUserRequest) returns (CreateUserResponse) {
         option (google.api.http) = {
             post: "/v1/create_user"
@@ -95,4 +101,20 @@ service DeeDee {
           body: "*"
       };
     }; 
+    rpc CreateEmail (CreateEmailRequest) returns (CreateEmailResponse) {
+      option (google.api.http) = {
+          post: "/v1/create_email"
+          body: "*"
+      };
+    };
+    rpc GetEmails (GetEmailsRequest) returns (GetEmailsResponse) {
+      option (google.api.http) = {
+          get: "/v1/get_emails/{user_id}"
+      };
+    };
+    rpc GetEmail (GetEmailRequest) returns (GetEmailResponse) {
+      option (google.api.http) = {
+          get: "/v1/get_email/{id}"
+      };
+    };
 }

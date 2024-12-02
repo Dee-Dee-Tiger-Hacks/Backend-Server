@@ -10,6 +10,16 @@ import (
 	"github.com/google/uuid"
 )
 
+type Email struct {
+	ID           uuid.UUID `json:"id"`
+	UserID       uuid.UUID `json:"user_id"`
+	Subject      string    `json:"subject"`
+	Content      string    `json:"content"`
+	Title        string    `json:"title"`
+	EmailAddress string    `json:"email_address"`
+	CreateAt     time.Time `json:"create_at"`
+}
+
 type Recruiter struct {
 	ID              uuid.UUID `json:"id"`
 	UserID          uuid.UUID `json:"user_id"`

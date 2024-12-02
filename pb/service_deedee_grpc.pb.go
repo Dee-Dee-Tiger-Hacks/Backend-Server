@@ -19,6 +19,7 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
+	DeeDee_GetUser_FullMethodName          = "/pb.DeeDee/GetUser"
 	DeeDee_CreateUser_FullMethodName       = "/pb.DeeDee/CreateUser"
 	DeeDee_UpdateUser_FullMethodName       = "/pb.DeeDee/UpdateUser"
 	DeeDee_LoginUser_FullMethodName        = "/pb.DeeDee/LoginUser"
@@ -30,12 +31,16 @@ const (
 	DeeDee_UpdateResume_FullMethodName     = "/pb.DeeDee/UpdateResume"
 	DeeDee_VerifyEmail_FullMethodName      = "/pb.DeeDee/VerifyEmail"
 	DeeDee_RenewAccessToken_FullMethodName = "/pb.DeeDee/RenewAccessToken"
+	DeeDee_CreateEmail_FullMethodName      = "/pb.DeeDee/CreateEmail"
+	DeeDee_GetEmails_FullMethodName        = "/pb.DeeDee/GetEmails"
+	DeeDee_GetEmail_FullMethodName         = "/pb.DeeDee/GetEmail"
 )
 
 // DeeDeeClient is the client API for DeeDee service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type DeeDeeClient interface {
+	GetUser(ctx context.Context, in *GetUserRequest, opts ...grpc.CallOption) (*GetUserResponse, error)
 	CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error)
 	UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*UpdateUserResponse, error)
 	LoginUser(ctx context.Context, in *LoginUserRequest, opts ...grpc.CallOption) (*LoginUserResponse, error)
@@ -47,6 +52,9 @@ type DeeDeeClient interface {
 	UpdateResume(ctx context.Context, in *UpdateResumeRequest, opts ...grpc.CallOption) (*UpdateResumeResponse, error)
 	VerifyEmail(ctx context.Context, in *VerifyEmailRequest, opts ...grpc.CallOption) (*VerifyEmailResponse, error)
 	RenewAccessToken(ctx context.Context, in *RenewAccessTokenRequest, opts ...grpc.CallOption) (*RenewAccessTokenResponse, error)
+	CreateEmail(ctx context.Context, in *CreateEmailRequest, opts ...grpc.CallOption) (*CreateEmailResponse, error)
+	GetEmails(ctx context.Context, in *GetEmailsRequest, opts ...grpc.CallOption) (*GetEmailsResponse, error)
+	GetEmail(ctx context.Context, in *GetEmailRequest, opts ...grpc.CallOption) (*GetEmailResponse, error)
 }
 
 type deeDeeClient struct {
@@ -55,6 +63,16 @@ type deeDeeClient struct {
 
 func NewDeeDeeClient(cc grpc.ClientConnInterface) DeeDeeClient {
 	return &deeDeeClient{cc}
+}
+
+func (c *deeDeeClient) GetUser(ctx context.Context, in *GetUserRequest, opts ...grpc.CallOption) (*GetUserResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetUserResponse)
+	err := c.cc.Invoke(ctx, DeeDee_GetUser_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *deeDeeClient) CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error) {
@@ -167,10 +185,41 @@ func (c *deeDeeClient) RenewAccessToken(ctx context.Context, in *RenewAccessToke
 	return out, nil
 }
 
+func (c *deeDeeClient) CreateEmail(ctx context.Context, in *CreateEmailRequest, opts ...grpc.CallOption) (*CreateEmailResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CreateEmailResponse)
+	err := c.cc.Invoke(ctx, DeeDee_CreateEmail_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *deeDeeClient) GetEmails(ctx context.Context, in *GetEmailsRequest, opts ...grpc.CallOption) (*GetEmailsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetEmailsResponse)
+	err := c.cc.Invoke(ctx, DeeDee_GetEmails_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *deeDeeClient) GetEmail(ctx context.Context, in *GetEmailRequest, opts ...grpc.CallOption) (*GetEmailResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetEmailResponse)
+	err := c.cc.Invoke(ctx, DeeDee_GetEmail_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // DeeDeeServer is the server API for DeeDee service.
 // All implementations must embed UnimplementedDeeDeeServer
 // for forward compatibility.
 type DeeDeeServer interface {
+	GetUser(context.Context, *GetUserRequest) (*GetUserResponse, error)
 	CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error)
 	UpdateUser(context.Context, *UpdateUserRequest) (*UpdateUserResponse, error)
 	LoginUser(context.Context, *LoginUserRequest) (*LoginUserResponse, error)
@@ -182,6 +231,9 @@ type DeeDeeServer interface {
 	UpdateResume(context.Context, *UpdateResumeRequest) (*UpdateResumeResponse, error)
 	VerifyEmail(context.Context, *VerifyEmailRequest) (*VerifyEmailResponse, error)
 	RenewAccessToken(context.Context, *RenewAccessTokenRequest) (*RenewAccessTokenResponse, error)
+	CreateEmail(context.Context, *CreateEmailRequest) (*CreateEmailResponse, error)
+	GetEmails(context.Context, *GetEmailsRequest) (*GetEmailsResponse, error)
+	GetEmail(context.Context, *GetEmailRequest) (*GetEmailResponse, error)
 	mustEmbedUnimplementedDeeDeeServer()
 }
 
@@ -192,6 +244,9 @@ type DeeDeeServer interface {
 // pointer dereference when methods are called.
 type UnimplementedDeeDeeServer struct{}
 
+func (UnimplementedDeeDeeServer) GetUser(context.Context, *GetUserRequest) (*GetUserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUser not implemented")
+}
 func (UnimplementedDeeDeeServer) CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateUser not implemented")
 }
@@ -225,6 +280,15 @@ func (UnimplementedDeeDeeServer) VerifyEmail(context.Context, *VerifyEmailReques
 func (UnimplementedDeeDeeServer) RenewAccessToken(context.Context, *RenewAccessTokenRequest) (*RenewAccessTokenResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RenewAccessToken not implemented")
 }
+func (UnimplementedDeeDeeServer) CreateEmail(context.Context, *CreateEmailRequest) (*CreateEmailResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateEmail not implemented")
+}
+func (UnimplementedDeeDeeServer) GetEmails(context.Context, *GetEmailsRequest) (*GetEmailsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetEmails not implemented")
+}
+func (UnimplementedDeeDeeServer) GetEmail(context.Context, *GetEmailRequest) (*GetEmailResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetEmail not implemented")
+}
 func (UnimplementedDeeDeeServer) mustEmbedUnimplementedDeeDeeServer() {}
 func (UnimplementedDeeDeeServer) testEmbeddedByValue()                {}
 
@@ -244,6 +308,24 @@ func RegisterDeeDeeServer(s grpc.ServiceRegistrar, srv DeeDeeServer) {
 		t.testEmbeddedByValue()
 	}
 	s.RegisterService(&DeeDee_ServiceDesc, srv)
+}
+
+func _DeeDee_GetUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DeeDeeServer).GetUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DeeDee_GetUser_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DeeDeeServer).GetUser(ctx, req.(*GetUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _DeeDee_CreateUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -444,6 +526,60 @@ func _DeeDee_RenewAccessToken_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DeeDee_CreateEmail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateEmailRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DeeDeeServer).CreateEmail(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DeeDee_CreateEmail_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DeeDeeServer).CreateEmail(ctx, req.(*CreateEmailRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DeeDee_GetEmails_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetEmailsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DeeDeeServer).GetEmails(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DeeDee_GetEmails_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DeeDeeServer).GetEmails(ctx, req.(*GetEmailsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DeeDee_GetEmail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetEmailRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DeeDeeServer).GetEmail(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DeeDee_GetEmail_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DeeDeeServer).GetEmail(ctx, req.(*GetEmailRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // DeeDee_ServiceDesc is the grpc.ServiceDesc for DeeDee service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -451,6 +587,10 @@ var DeeDee_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "pb.DeeDee",
 	HandlerType: (*DeeDeeServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetUser",
+			Handler:    _DeeDee_GetUser_Handler,
+		},
 		{
 			MethodName: "CreateUser",
 			Handler:    _DeeDee_CreateUser_Handler,
@@ -494,6 +634,18 @@ var DeeDee_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "RenewAccessToken",
 			Handler:    _DeeDee_RenewAccessToken_Handler,
+		},
+		{
+			MethodName: "CreateEmail",
+			Handler:    _DeeDee_CreateEmail_Handler,
+		},
+		{
+			MethodName: "GetEmails",
+			Handler:    _DeeDee_GetEmails_Handler,
+		},
+		{
+			MethodName: "GetEmail",
+			Handler:    _DeeDee_GetEmail_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

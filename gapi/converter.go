@@ -25,6 +25,7 @@ func convertUser(user db.User) *pb.User {
 
 func convertResume(resume db.Resume) *pb.Resume {
 	return &pb.Resume{
+		Id:             resume.ID.String(),
 		UserId:         resume.UserID.String(),
 		ResumePublicId: resume.ResumePublicID,
 		ResumeTitle:    resume.ResumeTitle,

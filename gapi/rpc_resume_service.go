@@ -13,7 +13,17 @@ import (
 )
 
 func (server *Server) GetResume(ctx context.Context, req *pb.GetResumeRequest) (*pb.GetResumeResponse, error) {
+	authPayload, err := server.authorizeUser(ctx)
 	userId := uuid.MustParse(req.GetUserId())
+
+	if err != nil {
+		return nil, unauthenticatedError(err)
+	}
+
+	if authPayload.UserId != userId {
+		return nil, status.Errorf(codes.PermissionDenied, "cannot get other user's info")
+	}
+
 	resume, err := server.store.GetResume(ctx, userId)
 	if err != nil {
 		if err == sql.ErrNoRows {
@@ -28,7 +38,16 @@ func (server *Server) GetResume(ctx context.Context, req *pb.GetResumeRequest) (
 }
 
 func (server *Server) CreateResume(ctx context.Context, req *pb.CreateResumeRequest) (*pb.CreateResumeResponse, error) {
+	authPayload, err := server.authorizeUser(ctx)
 	userId := uuid.MustParse(req.GetUserId())
+
+	if err != nil {
+		return nil, unauthenticatedError(err)
+	}
+
+	if authPayload.UserId != userId {
+		return nil, status.Errorf(codes.PermissionDenied, "cannot get other user's info")
+	}
 
 	resumeId, err := uuid.NewRandom()
 
@@ -55,7 +74,16 @@ func (server *Server) CreateResume(ctx context.Context, req *pb.CreateResumeRequ
 }
 
 func (server *Server) UpdateResume(ctx context.Context, req *pb.UpdateResumeRequest) (*pb.UpdateResumeResponse, error) {
+	authPayload, err := server.authorizeUser(ctx)
 	userId := uuid.MustParse(req.GetUserId())
+
+	if err != nil {
+		return nil, unauthenticatedError(err)
+	}
+
+	if authPayload.UserId != userId {
+		return nil, status.Errorf(codes.PermissionDenied, "cannot get other user's info")
+	}
 
 	arg := db.UpdateResumeParams{
 		UserID: userId,

@@ -26,6 +26,38 @@
     "application/json"
   ],
   "paths": {
+    "/v1/create_email": {
+      "post": {
+        "operationId": "DeeDee_CreateEmail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbCreateEmailResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/pbCreateEmailRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DeeDee"
+        ]
+      }
+    },
     "/v1/create_recruiter": {
       "post": {
         "operationId": "DeeDee_CreateRecruiter",
@@ -122,6 +154,66 @@
         ]
       }
     },
+    "/v1/get_email/{id}": {
+      "get": {
+        "operationId": "DeeDee_GetEmail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbGetEmailResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "DeeDee"
+        ]
+      }
+    },
+    "/v1/get_emails/{userId}": {
+      "get": {
+        "operationId": "DeeDee_GetEmails",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbGetEmailsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "DeeDee"
+        ]
+      }
+    },
     "/v1/get_recruiter/{recruiterId}": {
       "get": {
         "operationId": "DeeDee_GetRecruiter",
@@ -190,6 +282,36 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/pbGetResumeResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "DeeDee"
+        ]
+      }
+    },
+    "/v1/get_user/{userId}": {
+      "get": {
+        "operationId": "DeeDee_GetUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbGetUserResponse"
             }
           },
           "default": {
@@ -433,6 +555,35 @@
       },
       "title": "Update User"
     },
+    "pbCreateEmailRequest": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "subject": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "emailAddress": {
+          "type": "string"
+        }
+      },
+      "title": "Create Email"
+    },
+    "pbCreateEmailResponse": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "$ref": "#/definitions/pbEmail"
+        }
+      }
+    },
     "pbCreateRecruiterRequest": {
       "type": "object",
       "properties": {
@@ -526,6 +677,49 @@
         }
       }
     },
+    "pbEmail": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "subject": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "emailAddress": {
+          "type": "string"
+        }
+      }
+    },
+    "pbGetEmailResponse": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "$ref": "#/definitions/pbEmail"
+        }
+      }
+    },
+    "pbGetEmailsResponse": {
+      "type": "object",
+      "properties": {
+        "emails": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/pbEmail"
+          }
+        }
+      }
+    },
     "pbGetRecruiterResponse": {
       "type": "object",
       "properties": {
@@ -551,6 +745,14 @@
       "properties": {
         "resume": {
           "$ref": "#/definitions/pbResume"
+        }
+      }
+    },
+    "pbGetUserResponse": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/pbUser"
         }
       }
     },

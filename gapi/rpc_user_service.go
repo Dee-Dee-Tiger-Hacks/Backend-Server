@@ -21,6 +21,34 @@ import (
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
+func (server *Server) GetUser(ctx context.Context, req *pb.GetUserRequest) (*pb.GetUserResponse, error) {
+	authPayload, err := server.authorizeUser(ctx)
+	userId := uuid.MustParse(req.GetUserId())
+
+	if err != nil {
+		return nil, unauthenticatedError(err)
+	}
+
+	if authPayload.UserId != userId {
+		return nil, status.Errorf(codes.PermissionDenied, "cannot get other user's info")
+	}
+
+	user, err := server.store.GetUserById(ctx, userId)
+
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return nil, status.Errorf(codes.NotFound, "user not found: %s", err)
+		}
+		return nil, status.Errorf(codes.Internal, "failed to get user: %s", err)
+	}
+
+	rsp := &pb.GetUserResponse{
+		User: convertUser(user),
+	}
+
+	return rsp, nil
+}
+
 func (server *Server) CreateUser(ctx context.Context, req *pb.CreateUserRequest) (*pb.CreateUserResponse, error) {
 	violations := validateCreateUserRequest(req)
 	if violations != nil {
