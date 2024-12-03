@@ -11,6 +11,7 @@ import (
 )
 
 type Querier interface {
+	CountEmailsByUserId(ctx context.Context, userID uuid.UUID) (int64, error)
 	CreateEmail(ctx context.Context, arg CreateEmailParams) (Email, error)
 	CreateRecruiter(ctx context.Context, arg CreateRecruiterParams) (Recruiter, error)
 	CreateResume(ctx context.Context, arg CreateResumeParams) (Resume, error)
@@ -18,7 +19,7 @@ type Querier interface {
 	CreateUser(ctx context.Context, arg CreateUserParams) (User, error)
 	CreateVerifyEmail(ctx context.Context, arg CreateVerifyEmailParams) (VerifyEmail, error)
 	GetEmailById(ctx context.Context, id uuid.UUID) (Email, error)
-	GetEmailsByUserId(ctx context.Context, userID uuid.UUID) ([]Email, error)
+	GetEmailsByUserId(ctx context.Context, arg GetEmailsByUserIdParams) ([]Email, error)
 	GetRecruiterById(ctx context.Context, id uuid.UUID) (Recruiter, error)
 	GetRecruitersByUserId(ctx context.Context, userID uuid.UUID) ([]Recruiter, error)
 	GetResume(ctx context.Context, userID uuid.UUID) (Resume, error)

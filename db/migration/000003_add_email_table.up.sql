@@ -5,7 +5,7 @@ CREATE TABLE "emails" (
   "content" varchar NOT NULL,
   "title" varchar NOT NULL,
   "email_address" varchar NOT NULL,
-  "create_at" timestamptz NOT NULL DEFAULT 'now()'
+  "create_at" timestamp NOT NULL DEFAULT 'now()'
 );
 
 CREATE INDEX ON "emails" ("user_id");

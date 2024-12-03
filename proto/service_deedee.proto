@@ -109,12 +109,18 @@ service DeeDee {
     };
     rpc GetEmails (GetEmailsRequest) returns (GetEmailsResponse) {
       option (google.api.http) = {
-          get: "/v1/get_emails/{user_id}"
+          get: "/v1/get_emails/{user_id}/page/{page}/limit/{limit}"
       };
     };
     rpc GetEmail (GetEmailRequest) returns (GetEmailResponse) {
       option (google.api.http) = {
           get: "/v1/get_email/{id}"
+      };
+    };
+    rpc UpdateEmail (UpdateEmailRequest) returns (UpdateEmailResponse) {
+      option (google.api.http) = {
+          put: "/v1/update_email/{id}"
+          body: "*"
       };
     };
 }

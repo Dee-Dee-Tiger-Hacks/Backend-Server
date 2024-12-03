@@ -34,6 +34,7 @@ const (
 	DeeDee_CreateEmail_FullMethodName      = "/pb.DeeDee/CreateEmail"
 	DeeDee_GetEmails_FullMethodName        = "/pb.DeeDee/GetEmails"
 	DeeDee_GetEmail_FullMethodName         = "/pb.DeeDee/GetEmail"
+	DeeDee_UpdateEmail_FullMethodName      = "/pb.DeeDee/UpdateEmail"
 )
 
 // DeeDeeClient is the client API for DeeDee service.
@@ -55,6 +56,7 @@ type DeeDeeClient interface {
 	CreateEmail(ctx context.Context, in *CreateEmailRequest, opts ...grpc.CallOption) (*CreateEmailResponse, error)
 	GetEmails(ctx context.Context, in *GetEmailsRequest, opts ...grpc.CallOption) (*GetEmailsResponse, error)
 	GetEmail(ctx context.Context, in *GetEmailRequest, opts ...grpc.CallOption) (*GetEmailResponse, error)
+	UpdateEmail(ctx context.Context, in *UpdateEmailRequest, opts ...grpc.CallOption) (*UpdateEmailResponse, error)
 }
 
 type deeDeeClient struct {
@@ -215,6 +217,16 @@ func (c *deeDeeClient) GetEmail(ctx context.Context, in *GetEmailRequest, opts .
 	return out, nil
 }
 
+func (c *deeDeeClient) UpdateEmail(ctx context.Context, in *UpdateEmailRequest, opts ...grpc.CallOption) (*UpdateEmailResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UpdateEmailResponse)
+	err := c.cc.Invoke(ctx, DeeDee_UpdateEmail_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // DeeDeeServer is the server API for DeeDee service.
 // All implementations must embed UnimplementedDeeDeeServer
 // for forward compatibility.
@@ -234,6 +246,7 @@ type DeeDeeServer interface {
 	CreateEmail(context.Context, *CreateEmailRequest) (*CreateEmailResponse, error)
 	GetEmails(context.Context, *GetEmailsRequest) (*GetEmailsResponse, error)
 	GetEmail(context.Context, *GetEmailRequest) (*GetEmailResponse, error)
+	UpdateEmail(context.Context, *UpdateEmailRequest) (*UpdateEmailResponse, error)
 	mustEmbedUnimplementedDeeDeeServer()
 }
 
@@ -288,6 +301,9 @@ func (UnimplementedDeeDeeServer) GetEmails(context.Context, *GetEmailsRequest) (
 }
 func (UnimplementedDeeDeeServer) GetEmail(context.Context, *GetEmailRequest) (*GetEmailResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetEmail not implemented")
+}
+func (UnimplementedDeeDeeServer) UpdateEmail(context.Context, *UpdateEmailRequest) (*UpdateEmailResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateEmail not implemented")
 }
 func (UnimplementedDeeDeeServer) mustEmbedUnimplementedDeeDeeServer() {}
 func (UnimplementedDeeDeeServer) testEmbeddedByValue()                {}
@@ -580,6 +596,24 @@ func _DeeDee_GetEmail_Handler(srv interface{}, ctx context.Context, dec func(int
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DeeDee_UpdateEmail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateEmailRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DeeDeeServer).UpdateEmail(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DeeDee_UpdateEmail_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DeeDeeServer).UpdateEmail(ctx, req.(*UpdateEmailRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // DeeDee_ServiceDesc is the grpc.ServiceDesc for DeeDee service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -646,6 +680,10 @@ var DeeDee_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetEmail",
 			Handler:    _DeeDee_GetEmail_Handler,
+		},
+		{
+			MethodName: "UpdateEmail",
+			Handler:    _DeeDee_UpdateEmail_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

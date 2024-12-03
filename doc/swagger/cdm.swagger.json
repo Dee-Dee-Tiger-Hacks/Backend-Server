@@ -184,7 +184,7 @@
         ]
       }
     },
-    "/v1/get_emails/{userId}": {
+    "/v1/get_emails/{userId}/page/{page}/limit/{limit}": {
       "get": {
         "operationId": "DeeDee_GetEmails",
         "responses": {
@@ -207,6 +207,20 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "limit",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
           }
         ],
         "tags": [
@@ -398,6 +412,44 @@
         ]
       }
     },
+    "/v1/update_email/{id}": {
+      "put": {
+        "operationId": "DeeDee_UpdateEmail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbUpdateEmailResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeeDeeUpdateEmailBody"
+            }
+          }
+        ],
+        "tags": [
+          "DeeDee"
+        ]
+      }
+    },
     "/v1/update_resume/{userId}": {
       "put": {
         "operationId": "DeeDee_UpdateResume",
@@ -513,6 +565,24 @@
     }
   },
   "definitions": {
+    "DeeDeeUpdateEmailBody": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "subject": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        }
+      },
+      "title": "Update Email"
+    },
     "DeeDeeUpdateResumeBody": {
       "type": "object",
       "properties": {
@@ -717,6 +787,10 @@
             "type": "object",
             "$ref": "#/definitions/pbEmail"
           }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     },
@@ -870,6 +944,14 @@
         "expiresAt": {
           "type": "string",
           "format": "date-time"
+        }
+      }
+    },
+    "pbUpdateEmailResponse": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "$ref": "#/definitions/pbEmail"
         }
       }
     },

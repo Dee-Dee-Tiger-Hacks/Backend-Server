@@ -12,6 +12,18 @@ import (
 	"github.com/jackc/pgx/v5/pgtype"
 )
 
+const countEmailsByUserId = `-- name: CountEmailsByUserId :one
+SELECT COUNT(*) FROM emails
+WHERE user_id = $1
+`
+
+func (q *Queries) CountEmailsByUserId(ctx context.Context, userID uuid.UUID) (int64, error) {
+	row := q.db.QueryRow(ctx, countEmailsByUserId, userID)
+	var count int64
+	err := row.Scan(&count)
+	return count, err
+}
+
 const createEmail = `-- name: CreateEmail :one
 INSERT INTO emails (
     id,
@@ -19,9 +31,10 @@ INSERT INTO emails (
     subject,
     content,
     title,
-    email_address
+    email_address,
+    create_at
 ) VALUES (
-    $1, $2, $3, $4, $5, $6
+    $1, $2, $3, $4, $5, $6, now()
 ) RETURNING id, user_id, subject, content, title, email_address, create_at
 `
 
@@ -79,10 +92,18 @@ func (q *Queries) GetEmailById(ctx context.Context, id uuid.UUID) (Email, error)
 const getEmailsByUserId = `-- name: GetEmailsByUserId :many
 SELECT id, user_id, subject, content, title, email_address, create_at FROM emails
 WHERE user_id = $1
+ORDER BY create_at DESC
+LIMIT $2 OFFSET $3
 `
 
-func (q *Queries) GetEmailsByUserId(ctx context.Context, userID uuid.UUID) ([]Email, error) {
-	rows, err := q.db.Query(ctx, getEmailsByUserId, userID)
+type GetEmailsByUserIdParams struct {
+	UserID uuid.UUID `json:"user_id"`
+	Limit  int32     `json:"limit"`
+	Offset int32     `json:"offset"`
+}
+
+func (q *Queries) GetEmailsByUserId(ctx context.Context, arg GetEmailsByUserIdParams) ([]Email, error) {
+	rows, err := q.db.Query(ctx, getEmailsByUserId, arg.UserID, arg.Limit, arg.Offset)
 	if err != nil {
 		return nil, err
 	}

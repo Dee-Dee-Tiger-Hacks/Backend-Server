@@ -73,6 +73,7 @@ func (server *Server) CreateUser(ctx context.Context, req *pb.CreateUserRequest)
 			HashedPassword: hashedPassword,
 			FullName:       req.GetFullName(),
 			Email:          req.GetEmail(),
+			AvatarUrl:      "https://i.pravatar.cc/150?u=a042581f4e29026704d",
 		},
 		AfterCreate: func(user db.User) error {
 			taskPayload := &worker.PayloadSendVerifyEmail{

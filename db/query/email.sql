@@ -5,9 +5,10 @@ INSERT INTO emails (
     subject,
     content,
     title,
-    email_address
+    email_address,
+    create_at
 ) VALUES (
-    $1, $2, $3, $4, $5, $6
+    $1, $2, $3, $4, $5, $6, now()
 ) RETURNING *;
 
 -- name: UpdateEmail :one
@@ -26,5 +27,10 @@ WHERE id = $1 LIMIT 1;
 
 -- name: GetEmailsByUserId :many
 SELECT * FROM emails
-WHERE user_id = $1;
+WHERE user_id = $1
+ORDER BY create_at DESC
+LIMIT $2 OFFSET $3;
 
+-- name: CountEmailsByUserId :one
+SELECT COUNT(*) FROM emails
+WHERE user_id = $1;

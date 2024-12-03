@@ -38,8 +38,24 @@ message GetEmailResponse {
 // Get Emails
 message GetEmailsRequest {
     string user_id = 1;
+    int32 page = 2;
+    int32 limit = 3;
 }
 
 message GetEmailsResponse {
     repeated Email emails = 1;
+    int32 total = 2;
+}
+
+// Update Email
+message UpdateEmailRequest {
+    string id = 1;
+    string user_id = 2;
+    optional string subject = 3; 
+    optional string content = 4;
+    optional string title = 5;
+}
+
+message UpdateEmailResponse {
+    Email email = 1;
 }

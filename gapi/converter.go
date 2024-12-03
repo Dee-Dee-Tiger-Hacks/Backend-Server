@@ -63,6 +63,32 @@ func convertRecruiters(recruiters []db.Recruiter) []*pb.Recruiter {
 	return res
 }
 
+func convertEmail(email db.Email) *pb.Email {
+	return &pb.Email{
+		Id:           email.ID.String(),
+		UserId:       email.UserID.String(),
+		Subject:      email.Subject,
+		Content:      email.Content,
+		Title:        email.Title,
+		EmailAddress: email.EmailAddress,
+	}
+}
+
+func convertEmails(emails []db.Email) []*pb.Email {
+	res := []*pb.Email{}
+	for i := 0; i < len(emails); i++ {
+		res = append(res, &pb.Email{
+			Id:           emails[i].ID.String(),
+			UserId:       emails[i].UserID.String(),
+			Subject:      emails[i].Subject,
+			Content:      emails[i].Content,
+			Title:        emails[i].Title,
+			EmailAddress: emails[i].EmailAddress,
+		})
+	}
+	return res
+}
+
 func convertToken(accessToken string, expiresAt time.Time) *pb.Token {
 	return &pb.Token{
 		Token:     accessToken,
