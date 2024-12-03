@@ -21,6 +21,34 @@ import (
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
+func (server *Server) GetUser(ctx context.Context, req *pb.GetUserRequest) (*pb.GetUserResponse, error) {
+	authPayload, err := server.authorizeUser(ctx)
+	userId := uuid.MustParse(req.GetUserId())
+
+	if err != nil {
+		return nil, unauthenticatedError(err)
+	}
+
+	if authPayload.UserId != userId {
+		return nil, status.Errorf(codes.PermissionDenied, "cannot get other user's info")
+	}
+
+	user, err := server.store.GetUserById(ctx, userId)
+
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return nil, status.Errorf(codes.NotFound, "user not found: %s", err)
+		}
+		return nil, status.Errorf(codes.Internal, "failed to get user: %s", err)
+	}
+
+	rsp := &pb.GetUserResponse{
+		User: convertUser(user),
+	}
+
+	return rsp, nil
+}
+
 func (server *Server) CreateUser(ctx context.Context, req *pb.CreateUserRequest) (*pb.CreateUserResponse, error) {
 	violations := validateCreateUserRequest(req)
 	if violations != nil {
@@ -45,6 +73,7 @@ func (server *Server) CreateUser(ctx context.Context, req *pb.CreateUserRequest)
 			HashedPassword: hashedPassword,
 			FullName:       req.GetFullName(),
 			Email:          req.GetEmail(),
+			AvatarUrl:      "https://i.pravatar.cc/150?u=a042581f4e29026704d",
 		},
 		AfterCreate: func(user db.User) error {
 			taskPayload := &worker.PayloadSendVerifyEmail{
@@ -102,6 +131,22 @@ func (server *Server) UpdateUser(ctx context.Context, req *pb.UpdateUserRequest)
 		Email: pgtype.Text{
 			String: req.GetEmail(),
 			Valid:  req.Email != nil,
+		},
+		LinkedinUrl: pgtype.Text{
+			String: req.GetLinkedinUrl(),
+			Valid:  req.LinkedinUrl != nil,
+		},
+		Phone: pgtype.Text{
+			String: req.GetPhone(),
+			Valid:  req.Phone != nil,
+		},
+		AvatarUrl: pgtype.Text{
+			String: req.GetAvatarUrl(),
+			Valid:  req.AvatarUrl != nil,
+		},
+		JobTitle: pgtype.Text{
+			String: req.GetJobTitle(),
+			Valid:  req.JobTitle != nil,
 		},
 	}
 

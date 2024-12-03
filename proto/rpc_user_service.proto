@@ -12,8 +12,19 @@ message User {
     string full_name = 3;
     string email = 4;
     string linkedin_url = 5;
-    google.protobuf.Timestamp password_changed_at = 6;
-    google.protobuf.Timestamp created_at = 7;
+    string phone = 6;
+    string avatar_url = 7;
+    string job_title = 8;
+    google.protobuf.Timestamp password_changed_at = 9;
+    google.protobuf.Timestamp created_at = 10;
+}
+
+message GetUserRequest {
+    string user_id = 1;
+}
+
+message GetUserResponse {
+    User user = 1;
 }
 
 // Create User
@@ -22,7 +33,6 @@ message CreateUserRequest {
     string full_name = 2;
     string email = 3;
     string password = 4;
-    string linkedin_url = 5;
 }
 
 message CreateUserResponse {
@@ -36,6 +46,9 @@ message UpdateUserRequest {
     optional string email = 3;
     optional string password = 4;
     optional string linkedin_url = 5;
+    optional string phone = 6;
+    optional string avatar_url = 7;
+    optional string job_title = 8;
 }
 
 message UpdateUserResponse {

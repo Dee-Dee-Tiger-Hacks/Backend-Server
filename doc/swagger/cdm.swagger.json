@@ -26,6 +26,38 @@
     "application/json"
   ],
   "paths": {
+    "/v1/create_email": {
+      "post": {
+        "operationId": "DeeDee_CreateEmail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbCreateEmailResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/pbCreateEmailRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DeeDee"
+        ]
+      }
+    },
     "/v1/create_recruiter": {
       "post": {
         "operationId": "DeeDee_CreateRecruiter",
@@ -50,6 +82,38 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/pbCreateRecruiterRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DeeDee"
+        ]
+      }
+    },
+    "/v1/create_resume": {
+      "post": {
+        "operationId": "DeeDee_CreateResume",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbCreateResumeResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/pbCreateResumeRequest"
             }
           }
         ],
@@ -83,6 +147,80 @@
             "schema": {
               "$ref": "#/definitions/pbCreateUserRequest"
             }
+          }
+        ],
+        "tags": [
+          "DeeDee"
+        ]
+      }
+    },
+    "/v1/get_email/{id}": {
+      "get": {
+        "operationId": "DeeDee_GetEmail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbGetEmailResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "DeeDee"
+        ]
+      }
+    },
+    "/v1/get_emails/{userId}/page/{page}/limit/{limit}": {
+      "get": {
+        "operationId": "DeeDee_GetEmails",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbGetEmailsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "limit",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
           }
         ],
         "tags": [
@@ -128,6 +266,66 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/pbGetRecruitersResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "DeeDee"
+        ]
+      }
+    },
+    "/v1/get_resume/{userId}": {
+      "get": {
+        "operationId": "DeeDee_GetResume",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbGetResumeResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "DeeDee"
+        ]
+      }
+    },
+    "/v1/get_user/{userId}": {
+      "get": {
+        "operationId": "DeeDee_GetUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbGetUserResponse"
             }
           },
           "default": {
@@ -214,6 +412,82 @@
         ]
       }
     },
+    "/v1/update_email/{id}": {
+      "put": {
+        "operationId": "DeeDee_UpdateEmail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbUpdateEmailResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeeDeeUpdateEmailBody"
+            }
+          }
+        ],
+        "tags": [
+          "DeeDee"
+        ]
+      }
+    },
+    "/v1/update_resume/{userId}": {
+      "put": {
+        "operationId": "DeeDee_UpdateResume",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbUpdateResumeResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeeDeeUpdateResumeBody"
+            }
+          }
+        ],
+        "tags": [
+          "DeeDee"
+        ]
+      }
+    },
     "/v1/update_user/{userId}": {
       "put": {
         "operationId": "DeeDee_UpdateUser",
@@ -291,6 +565,39 @@
     }
   },
   "definitions": {
+    "DeeDeeUpdateEmailBody": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "subject": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        }
+      },
+      "title": "Update Email"
+    },
+    "DeeDeeUpdateResumeBody": {
+      "type": "object",
+      "properties": {
+        "resumePublicId": {
+          "type": "string"
+        },
+        "resumeTitle": {
+          "type": "string"
+        },
+        "resumePdfUrl": {
+          "type": "string"
+        }
+      },
+      "title": "Update Resume"
+    },
     "DeeDeeUpdateUserBody": {
       "type": "object",
       "properties": {
@@ -305,9 +612,47 @@
         },
         "linkedinUrl": {
           "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "avatarUrl": {
+          "type": "string"
+        },
+        "jobTitle": {
+          "type": "string"
         }
       },
       "title": "Update User"
+    },
+    "pbCreateEmailRequest": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "subject": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "emailAddress": {
+          "type": "string"
+        }
+      },
+      "title": "Create Email"
+    },
+    "pbCreateEmailResponse": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "$ref": "#/definitions/pbEmail"
+        }
+      }
     },
     "pbCreateRecruiterRequest": {
       "type": "object",
@@ -350,6 +695,32 @@
         }
       }
     },
+    "pbCreateResumeRequest": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "resumePublicId": {
+          "type": "string"
+        },
+        "resumeTitle": {
+          "type": "string"
+        },
+        "resumePdfUrl": {
+          "type": "string"
+        }
+      },
+      "title": "Create Resume"
+    },
+    "pbCreateResumeResponse": {
+      "type": "object",
+      "properties": {
+        "resume": {
+          "$ref": "#/definitions/pbResume"
+        }
+      }
+    },
     "pbCreateUserRequest": {
       "type": "object",
       "properties": {
@@ -364,9 +735,6 @@
         },
         "password": {
           "type": "string"
-        },
-        "linkedinUrl": {
-          "type": "string"
         }
       },
       "title": "Create User"
@@ -376,6 +744,53 @@
       "properties": {
         "user": {
           "$ref": "#/definitions/pbUser"
+        }
+      }
+    },
+    "pbEmail": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "subject": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "emailAddress": {
+          "type": "string"
+        }
+      }
+    },
+    "pbGetEmailResponse": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "$ref": "#/definitions/pbEmail"
+        }
+      }
+    },
+    "pbGetEmailsResponse": {
+      "type": "object",
+      "properties": {
+        "emails": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/pbEmail"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     },
@@ -396,6 +811,22 @@
             "type": "object",
             "$ref": "#/definitions/pbRecruiter"
           }
+        }
+      }
+    },
+    "pbGetResumeResponse": {
+      "type": "object",
+      "properties": {
+        "resume": {
+          "$ref": "#/definitions/pbResume"
+        }
+      }
+    },
+    "pbGetUserResponse": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/pbUser"
         }
       }
     },
@@ -484,6 +915,26 @@
         }
       }
     },
+    "pbResume": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "resumePublicId": {
+          "type": "string"
+        },
+        "resumeTitle": {
+          "type": "string"
+        },
+        "resumePdfUrl": {
+          "type": "string"
+        }
+      }
+    },
     "pbToken": {
       "type": "object",
       "properties": {
@@ -493,6 +944,22 @@
         "expiresAt": {
           "type": "string",
           "format": "date-time"
+        }
+      }
+    },
+    "pbUpdateEmailResponse": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "$ref": "#/definitions/pbEmail"
+        }
+      }
+    },
+    "pbUpdateResumeResponse": {
+      "type": "object",
+      "properties": {
+        "resume": {
+          "$ref": "#/definitions/pbResume"
         }
       }
     },
@@ -520,6 +987,15 @@
           "type": "string"
         },
         "linkedinUrl": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "avatarUrl": {
+          "type": "string"
+        },
+        "jobTitle": {
           "type": "string"
         },
         "passwordChangedAt": {

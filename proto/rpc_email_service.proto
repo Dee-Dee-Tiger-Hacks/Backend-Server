@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+package pb;
+
+option go_package = "github.com/Dee-Dee-Tiger-Hacks/Backend-Server/pb";
+
+message Email {
+    string id = 1;
+    string user_id = 2;
+    string subject = 3; 
+    string content = 4;
+    string title = 5;
+    string email_address = 6;
+}
+
+// Create Email
+message CreateEmailRequest {
+    string user_id = 1;
+    string subject = 2; 
+    string content = 3;
+    string title = 4;
+    string email_address = 5;
+}
+
+message CreateEmailResponse {
+    Email email = 1;
+}
+
+// Get Email
+message GetEmailRequest {
+    string id = 1;
+}
+
+message GetEmailResponse {
+    Email email = 1;
+}
+
+// Get Emails
+message GetEmailsRequest {
+    string user_id = 1;
+    int32 page = 2;
+    int32 limit = 3;
+}
+
+message GetEmailsResponse {
+    repeated Email emails = 1;
+    int32 total = 2;
+}
+
+// Update Email
+message UpdateEmailRequest {
+    string id = 1;
+    string user_id = 2;
+    optional string subject = 3; 
+    optional string content = 4;
+    optional string title = 5;
+}
+
+message UpdateEmailResponse {
+    Email email = 1;
+}
